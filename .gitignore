@@ -30,13 +30,11 @@ build/Release
 node_modules
 
 semantic/src
-
+semantic/dist/semantic.js
+semantic/dist/semantic.css
 semantic/dist/components
-
 semantic/dist/themes
-
 semantic/tasks
-
 semantic/gulpfile.js
 
 .idea/

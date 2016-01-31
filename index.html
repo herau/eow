@@ -9,6 +9,7 @@
     <title>Title</title>
 
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="semantic/dist/semantic.min.js"></script>
     <style type="text/css">
 
@@ -30,7 +31,7 @@
         }
 
         .container {
-            padding: 5em 0em;
+            padding: 5em 0;
         }
 
         .ui.dividing.header,
@@ -39,11 +40,19 @@
         }
 
         .ui.dividing.header:first-child {
-            margin-top: 0em;
+            margin-top: 0;
         }
 
         h1, h3 {
             margin-top: 10em;
+        }
+
+        h1 {
+            font-size: 2em !important;
+        }
+
+        .liberty-repeat-y {
+            background: url('assets/images/liberty.jpg') repeat-y;
         }
 
     </style>
@@ -52,11 +61,11 @@
 
 <div class="ui centered grid">
     <div class="row">
-        <div class="two wide column"></div>
+        <div class="two wide column liberty-repeat-y"></div>
         <div class="twelve wide column">
             <img class="ui image" src="assets/images/background.jpg">
         </div>
-        <div class="two wide column"></div>
+        <div class="two wide column liberty-repeat-y"></div>
     </div>
 
 </div>
