@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
+    <style type="text/css">
+
+        @font-face {
+            font-family: "sanigaw";
+            src: url('assets/fonts/SaginawMedium.ttf');
+        }
+
+        @font-face {
+            font-family: "sanigaw";
+            font-style: italic;
+            src: url('assets/fonts/SaginawLight.ttf');
+        }
+
+        @font-face {
+            font-family: "sanigaw";
+            font-weight: bold;
+            src: url('assets/fonts/SaginawBold.ttf');
+        }
+
+        .container {
+            padding: 5em 0em;
+        }
+
+        .ui.dividing.header,
+        .first {
+            margin-top: 5em;
+        }
+
+        .ui.dividing.header:first-child {
+            margin-top: 0em;
+        }
+
+        h1, h3 {
+            margin-top: 10em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="ui centered grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <img class="ui image" src="assets/images/background.jpg">
+        </div>
+        <div class="two wide column"></div>
+    </div>
+
+</div>
+
+<div class="ui text container">
+    <h1 class="ui dividing header">Camille & Maxime sont heureux de vous inviter à leur mariage</h1>
+    <h3 class="first">le <b>27 Août 2016</b></h3>
+    <p>La cérémonie aura lieu à 15h au sein de l'église Saint Martin</p>
+    <p>Suivi d'un cocktail et diner au Château de la Cour Senlisse à partir de 17h</p>
+    <p>Et ça continue le lendemain, autour d'un brunch à partir de 11h</p>
+</div>
+
+<div class="ui text container">
+    <h1 class="ui dividing header">Merci de nous confirmer votre présence ci-dessous</h1>
+    <form action="#">
+        <div class="ui input">
+            <div class="ui label">Nom</div>
+            <input id="name" required >
+        </div>
+        <div class="ui input">
+            <div class="ui label">OUI, AVEC PLAISIR !</div>
+            <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked="">
+            <div class="ui input">
+                <div class="ui label">Nombre de personnes</div>
+                <input class="mdl-textfield__input" type="number" id="people" min="1" max="10">
+            </div>
+            <div class="ui input">
+                <div class="ui label">Dont enfants</div>
+                <input class="mdl-textfield__input" type="number" id="children" min="0" max="5">
+            </div>
+        </div>
+        <div class="ui input">
+            <div class="ui label">NON, MALHEURESEMENT</div>
+            <div class="ui label">Nous ne pourrons être présents à vos côtés...</div>
+            <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
