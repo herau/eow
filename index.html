@@ -137,7 +137,15 @@
             </div>
         </div>
         <div class="item" >
-            <div class="map" id="program-map"></div>
+            <div class="map" id="program-map">
+                <iframe
+                        width="600"
+                        height="450"
+                        frameborder="0" style="border:0"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc
+    &q=Montigny+France" allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 </div>
@@ -196,37 +204,61 @@
                 </div>
             </div>
         </div>
-        <div class="item map" id="hotel-map"></div>
+        <div class="item map" id="hotel-map">
+            <iframe
+                    width="600"
+                    height="450"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc
+    &q=Senlisse+France" allowfullscreen>
+            </iframe>
+        </div>
     </div>
 </div>
 
 <div class="ui text container">
     <h1 class="ui dividing header">Merci de nous confirmer votre présence ci-dessous</h1>
-    <form action="#">
-        <div class="ui input">
-            <div class="ui label">Nom</div>
-            <input id="name" required>
+    <form action="#" class="ui form segment">
+        <div class="field">
+            <label for="name">Nom</label>
+            <input id="name" name="name" required>
         </div>
-        <div class="ui input">
-            <div class="ui label">OUI, AVEC PLAISIR !</div>
-            <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked="">
-            <div class="ui input">
-                <div class="ui label">Nombre de personnes</div>
-                <input class="mdl-textfield__input" type="number" id="people" min="1" max="10">
+        <div class="three fields">
+            <div class="inline field">
+                <div class="ui radio checkbox">
+                    <input id="yes" type="radio" name="present" value="1" tabindex="0" class="hidden" checked="checked">
+                    <label for="yes">Oui,<p> avec plaisir !</p></label>
+                </div>
             </div>
-            <div class="ui input">
-                <div class="ui label">Dont enfants</div>
-                <input class="mdl-textfield__input" type="number" id="children" min="0" max="5">
+            <div class="field">
+                <label for="people">Nombre de personnes</label>
+                <input type="number" name="people" id="people" min="1" max="10">
+            </div>
+            <div class="field">
+                <label for="children">Dont enfants</label>
+                <input type="number" name="children" id="children" min="0" max="5">
             </div>
         </div>
-        <div class="ui input">
-            <div class="ui label">NON, MALHEURESEMENT</div>
-            <div class="ui label">Nous ne pourrons être présents à vos côtés...</div>
-            <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+        <div class="inline field">
+            <div class="ui radio checkbox">
+                <input id="no" type="radio" name="present" value="0" tabindex="0" class="hidden">
+                <label for="no">Non,<p>Malheuresement nous ne pourrons être présents à vos côtés...</p></label>
+            </div>
         </div>
+        <button class="ui button" type="submit">Valider</button>
+        <div class="ui error message"></div>
     </form>
 </div>
 </div>
+<script>
+    var form = $('.ui.form');
+
+    form.submit(function(event){
+        var allFields = form.form('get values');
+        //TODO get all fields values and push to Google forms
+        event.preventDefault();
+    })
+</script>
 
 <!--<script type="text/javascript">-->
     <!--$('#clock').countdown('2016/08/27', function(event) {-->
@@ -234,21 +266,22 @@
     <!--});-->
 <!--</script>-->
 
-<script>
-    var hotelMap, programMap;
-    function initMaps() {
-        hotelMap = new google.maps.Map(document.getElementById('hotel-map'), {
-            center: {lat: 48.770810, lng: 2.028746},
-            zoom: 12
-        });
+<!--TODO replace all iframes (currently not showed)-->
+<!--<script>-->
+    <!--var hotelMap, programMap;-->
+    <!--function initMaps() {-->
+        <!--hotelMap = new google.maps.Map(document.getElementById('hotel-map'), {-->
+            <!--center: {lat: 48.770810, lng: 2.028746},-->
+            <!--zoom: 12-->
+        <!--});-->
 
-        programMap = new google.maps.Map(document.getElementById('program-map'), {
-            center: {lat: 48.770810, lng: 2.028746},
-            zoom: 12
-        });
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc&callback=initMaps" async defer></script>
+        <!--programMap = new google.maps.Map(document.getElementById('program-map'), {-->
+            <!--center: {lat: 48.770810, lng: 2.028746},-->
+            <!--zoom: 12-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc&callback=initMaps" async defer></script>-->
 
 </body>
 </html>
