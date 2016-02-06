@@ -37,4 +37,8 @@ semantic/dist/themes
 semantic/tasks
 semantic/gulpfile.js
 
+bower_components/jquery/
+
+bower_components/jquery.countdown/
+
 .idea/
