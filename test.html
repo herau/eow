@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
-    <title>Homepage - Semantic</title>
+    <title>Camille & Maxime</title>
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
     <style type="text/css">
@@ -122,7 +122,7 @@
 
         .ui.dividing.header,
         .first {
-            margin-top: 5em;
+            margin-top: 0em;
         }
 
         .ui.dividing.header:first-child {
@@ -174,16 +174,20 @@
             });
 
             // change active item for menu
-            $('.ui.transition .item').on('click', function() {
-                $('.ui .transition .item').removeClass('active');
+            $('.ui.top .item').on('click', function() {
+                $('.ui.top .item').removeClass('active');
                 $(this).addClass('active');
-
                 //
+                $('.ui.masthead .item.active').removeClass('active');
+                $('.ui.masthead .item[href="#' + $(this).attr('href') + '"]').addClass('active');
             });
 
             $('.ui.masthead .item').on('click', function() {
-                $('.ui .item').removeClass('active');
+                $('.ui.masthead .item').removeClass('active');
                 $(this).addClass('active');
+                //
+                $('.ui.top .item.active').removeClass('active');
+                $('.ui.top .item[href="#' + $(this).attr('href') + '"]').addClass('active');
             });
         });
     </script>
