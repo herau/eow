@@ -141,8 +141,19 @@
             background: url('assets/images/liberty.jpg') repeat-y;
         }
 
+        /* google maps */
         #hotel-map #program-map {
             height: 100% !important;
+        }
+
+        /* Sidebars use a special fix for iOS */
+        html.ios {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        html.ios,
+        html.ios body {
+            height: initial !important;
         }
     </style>
 
@@ -165,14 +176,6 @@
             // create sidebar and attach to menu open
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
-            // form validation and google Form submit
-            var form = $('.ui.form');
-            form.submit(function(event){
-                var allFields = form.form('get values');
-                //TODO get all fields values and push to Google forms
-                event.preventDefault();
-            });
-
             // change active item for menu
             $('.ui.top .item').on('click', function() {
                 $('.ui.top .item').removeClass('active');
@@ -188,6 +191,33 @@
                 //
                 $('.ui.top .item.active').removeClass('active');
                 $('.ui.top .item[href="#' + $(this).attr('href') + '"]').addClass('active');
+            });
+
+            var form = $('.ui.form'),
+                formUrl = 'https://docs.google.com/forms/d/1Nap_jmWEteZWV2lJyETkYeys6xDitStqDT_l0vPZEPw/formResponse';
+            form.submit(function(event){
+                var fields = form.form('get values');
+
+                var name = fields['name'],
+                    saturday = !!fields['saturday'],
+                    sunday = !!fields['sunday'],
+                    nbPeople = fields['people'],
+                    nbChildren = fields['children'];
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', encodeURI(formUrl));
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert('Something went wrong.  Name is now ' + xhr.responseText);
+                    } else if (xhr.status !== 200) {
+                        alert('Request failed.  Returned status of ' + xhr.status);
+                    }
+                };
+                xhr.send(encodeURI('entry.755074399=' + name + '&entry.133375324=' + saturday + '&entry.237537863' + sunday
+                        + '&entry.1850958901=' + nbPeople + '&entry.503660708=' + nbChildren));
+
+                event.preventDefault();
             });
         });
     </script>
@@ -377,13 +407,23 @@
                     <label for="name">Nom</label>
                     <input id="name" name="name" required maxlength="30">
                 </div>
-                <div class="three fields">
-                    <div class="inline field">
-                        <div class="ui radio checkbox">
-                            <input id="yes" type="radio" name="present" value="1" tabindex="0" class="hidden" checked="checked">
-                            <label for="yes">Oui,<p> avec plaisir !</p></label>
-                        </div>
+                <div class="inline field">
+                    <div class="ui radio checkbox">
+                        <input id="yes" type="radio" name="present" value="1" tabindex="0" class="hidden" checked="checked">
+                        <label for="yes">Oui,<p> avec plaisir !</p></label>
                     </div>
+                </div>
+                <div class="two fields">
+                    <div class="ui checkbox">
+                        <input id="sunday" type="checkbox" name="sunday" class="hidden" checked="checked" readonly>
+                        <label for="sunday">Samedi</label>
+                    </div>
+                    <div class="ui checkbox">
+                        <input id="saturday" type="checkbox" name="saturday" class="hidden">
+                        <label for="saturday">Dimanche</label>
+                    </div>
+                </div>
+                <div class="two fields">
                     <div class="field">
                         <label for="people">Nombre de personnes</label>
                         <input type="number" name="people" id="people" min="1" max="10">
@@ -422,7 +462,6 @@
         </div>
     </div>
 </div>
-
 </body>
 
 </html>

@@ -17,20 +17,5 @@
   },
   "permission": false,
   "rtl": false,
-  "components": [
-    "container",
-    "header",
-    "icon",
-    "image",
-    "input",
-    "label",
-    "segment",
-    "form",
-    "grid",
-    "menu",
-    "feed",
-    "statistic",
-    "form"
-  ],
   "version": "2.1.8"
 }
