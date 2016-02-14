@@ -120,11 +120,6 @@
             /*padding: 5em 0;*/
         /*}*/
 
-        .ui.dividing.header,
-        .first {
-            margin-top: 0em;
-        }
-
         .ui.dividing.header:first-child {
             margin-top: 0;
         }
@@ -137,8 +132,8 @@
             font-size: 2em !important;
         }
 
-        .liberty-repeat-y {
-            background: url('assets/images/liberty.jpg') repeat-y;
+        .ui.liberty {
+            background: url('assets/images/liberty.jpg') !important;
         }
 
         /* Sidebars use a special fix for iOS */
@@ -151,9 +146,29 @@
             height: initial !important;
         }
 
+        .ui.vertical.stripe {
+            padding: 3em 0em !important;
+        }
+
+        .footer.segment {
+            padding: 2em 0 !important;
+        }
+
+        .ui.grid>*.icon {
+            padding-left: 0.5rem;
+        }
+
         .hidden {
             display: none;
         }
+
+        .todo {
+            border-image: url('assets/images/liberty.jpg') 50 round;
+            border-image-width: 25px;
+            border-image-outset: 35px;
+        }
+
+
     </style>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
@@ -208,6 +223,9 @@
                     },
                     type: "POST",
                     dataType: "xml",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Access-Control-Allow-Origin", "")
+                    },
                     statusCode: {
                         0: function (){
                             //TODO CORS issue
@@ -225,9 +243,9 @@
             $('.ui.statistics').countdown(date, function(event) {
                 var text = '<div class="statistic">' +
                         '<div class="value">%D</div>' +
-                        '<div class="label pink">Jours</div>' +
+                        '<div class="label">Jours</div>' +
                         '</div>' +
-                        '<div class="statistic">' +
+                        '<div class="statistic pink">' +
                         '<div class="value">%H</div>' +
                         '<div class="label">Heures</div>' +
                         '</div>' +
@@ -255,51 +273,53 @@
 <body>
 
 <!-- Following Menu -->
-<div class="ui large top fixed hidden menu">
+<div class="ui large top fixed hidden menu inverted pink">
     <div class="ui container">
         <a class="active item" href="#">Accueil</a>
         <a class="item" href="#program">Programme</a>
-        <a class="item" href="#hotel">Hébergements</a>
         <a class="item" href="#confirm">Confirmer votre présence</a>
+        <a class="item" href="#hotel">Hébergements</a>
     </div>
 </div>
 
 <!-- Sidebar Menu -->
-<div class="ui vertical inverted sidebar menu">
+<div class="ui vertical inverted sidebar menu pink">
     <a class="active item">Accueil</a>
     <a class="item" href="#program">Programme</a>
-    <a class="item" href="#hotel">Hébergements</a>
     <a class="item" href="#confirm">Confirmer votre présence</a>
+    <a class="item" href="#hotel">Hébergements</a>
 </div>
 
 <!-- Page Contents -->
 <div class="pusher">
-    <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui inverted vertical masthead center aligned segment liberty">
 
         <div class="ui container">
-            <div class="ui large secondary inverted pointing menu">
+            <div class="ui large secondary inverted pointing menu pink">
                 <a class="toc item">
                     <i class="sidebar icon"></i>
                 </a>
                 <a class="active item">Accueil</a>
                 <a class="item" href="#program">Programme</a>
-                <a class="item" href="#hotel">Hébergements</a>
                 <a class="item" href="#confirm">Confirmer votre présence</a>
+                <a class="item" href="#hotel">Hébergements</a>
             </div>
         </div>
 
         <div class="ui text container">
-            <h1 class="ui inverted header">
+            <h1 class="ui header black" style="font-weight: bolder">
                 Camille & Maxime
             </h1>
-            <div class="ui inverted statistics" data-date="2016/08/27"></div>
             <br>
         </div>
 
         <div class="ui container">
             <img class="ui image" src="assets/images/background.jpg">
         </div>
+    </div>
 
+    <div class="ui text container header">
+        <div class="ui statistics pink" style="font-weight: bold" data-date="2016/08/27"></div>
     </div>
 
     <a name="program"></a>
@@ -348,6 +368,56 @@
                     <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJPT7gwzmB5kcRXaajVhDLB5U&destination=place_id:ChIJOUx24-gp5EcRRjezPrAABR4&key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc" allowfullscreen></iframe>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <a name="confirm"></a>
+    <div class="ui vertical stripe ">
+        <div class="ui text container">
+            <h1 class="ui dividing header">Merci de nous confirmer votre présence ci-dessous</h1>
+            <form class="ui form segment">
+                <div class="field">
+                    <label for="name">Nom</label>
+                    <input id="name" name="name" required maxlength="30">
+                </div>
+                <div class="inline field">
+                    <div class="ui radio checkbox">
+                        <input id="yes" type="radio" name="present" value="1" class="hidden" onclick="handleClick(this)" required>
+                        <label for="yes">Oui,<p> avec plaisir !</p></label>
+                    </div>
+                </div>
+                <div id="hidden-fields" class="field hidden">
+                    <div class="two fields">
+                        <div class="ui checkbox container">
+                            <input id="sunday" type="checkbox" name="sunday" class="hidden" checked="checked" readonly>
+                            <label for="sunday">Samedi</label>
+                        </div>
+                        <div class="ui checkbox container">
+                            <input id="saturday" type="checkbox" name="saturday" class="hidden">
+                            <label for="saturday">Dimanche</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="two fields">
+                        <div class="field">
+                            <label for="people">Nombre de personnes</label>
+                            <input type="number" name="people" id="people" min="1" max="10">
+                        </div>
+                        <div class="field">
+                            <label for="children">Dont enfants</label>
+                            <input type="number" name="children" id="children" min="0" max="5">
+                        </div>
+                    </div>
+                </div>
+                <div class="inline field">
+                    <div class="ui radio checkbox">
+                        <input id="no" type="radio" name="present" value="0" class="hidden" onclick="handleClick2(this)">
+                        <label for="no">Non,<p>Malheuresement j'ai aqua-poney...</p></label>
+                    </div>
+                </div>
+                <button class="ui button" type="submit">Valider</button>
+                <div class="ui error message"></div>
+            </form>
         </div>
     </div>
 
@@ -424,69 +494,10 @@
         </div>
     </div>
 
-    <a name="confirm"></a>
-    <div class="ui vertical stripe ">
-        <div class="ui text container">
-            <h1 class="ui dividing header">Merci de nous confirmer votre présence ci-dessous</h1>
-            <form class="ui form segment">
-                <div class="field">
-                    <label for="name">Nom</label>
-                    <input id="name" name="name" required maxlength="30">
-                </div>
-                <div class="inline field">
-                    <div class="ui radio checkbox">
-                        <input id="yes" type="radio" name="present" value="1" class="hidden" onclick="handleClick(this)" required>
-                        <label for="yes">Oui,<p> avec plaisir !</p></label>
-                    </div>
-                </div>
-                <div id="hidden-fields" class="field hidden">
-                    <div class="two fields">
-                        <div class="ui checkbox container">
-                            <input id="sunday" type="checkbox" name="sunday" class="hidden" checked="checked" readonly>
-                            <label for="sunday">Samedi</label>
-                        </div>
-                        <div class="ui checkbox container">
-                            <input id="saturday" type="checkbox" name="saturday" class="hidden">
-                            <label for="saturday">Dimanche</label>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="two fields">
-                        <div class="field">
-                            <label for="people">Nombre de personnes</label>
-                            <input type="number" name="people" id="people" min="1" max="10">
-                        </div>
-                        <div class="field">
-                            <label for="children">Dont enfants</label>
-                            <input type="number" name="children" id="children" min="0" max="5">
-                        </div>
-                    </div>
-                </div>
-                <div class="inline field">
-                    <div class="ui radio checkbox">
-                        <input id="no" type="radio" name="present" value="0" class="hidden" onclick="handleClick2(this)">
-                        <label for="no">Non,<p>Malheuresement j'ai aqua-poney...</p></label>
-                    </div>
-                </div>
-                <button class="ui button" type="submit">Valider</button>
-                <div class="ui error message"></div>
-            </form>
-        </div>
-    </div>
-
     <div class="ui inverted vertical footer segment">
         <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">
-                Conçu avec amour par Auré
-                <!--<div class="three wide column">-->
-                    <!--<h4 class="ui inverted header">About</h4>-->
-                    <!--<div class="ui inverted link list">-->
-                        <!--<a href="#" class="item">Sitemap</a>-->
-                        <!--<a href="#" class="item">Contact Us</a>-->
-                        <!--<a href="#" class="item">Religious Ceremonies</a>-->
-                        <!--<a href="#" class="item">Gazebo Plans</a>-->
-                    <!--</div>-->
-                <!--</div>-->
+                Conçu avec<i class="heart icon pink"></i> par Auré
             </div>
         </div>
     </div>
