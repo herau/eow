@@ -80,6 +80,8 @@
         }
 
         .ui.header.black {
+            font-weight: bolder;
+            color: black;
             text-shadow: 0px 0px 3px #000, -2px -2px #FCE4EC, 2px 1px #FCE4EC;
         }
 
@@ -177,6 +179,10 @@
         html.ios,
         html.ios body {
             height: initial !important;
+        }
+
+        .description, .meta, .header {
+            color: white !important;
         }
     </style>
 
@@ -288,7 +294,7 @@
     <div class="ui inverted vertical masthead center aligned segment liberty">
 
         <div class="ui text container">
-            <h1 class="ui header black" style="font-weight: bolder">
+            <h1 class="ui header black">
                 Camille & Maxime
             </h1>
             <br>
@@ -316,9 +322,9 @@
 
     <div class="ui vertical stripe">
 
-        <div class="ui text container segment" >
+        <div class="ui text container segment inverted" >
                 <img class="ui medium left floated image" src="assets/images/background.jpg">
-                <h1 class="ui dividing header">Notre journée tant attendue!</h1>
+                <h1 class="ui header pink">Notre journée tant attendue!</h1>
                 <p>La cérémonie à la mairie se fera le vendredi 26 Août avec seulement nos parents, frères et soeurs et témoins.</p>
                 <p>Nous nous retrouverons donc le 27 Août pour la cérémonie religieuse et la récéption, que nous sommes ravis de célébrer avec chacun d'entre vous !</p>
         </div>
@@ -327,8 +333,8 @@
 
     <a name="program"></a>
     <div class="ui vertical stripe">
-        <div class="ui text container segment" >
-            <h1 class="ui dividing header">Le programme</h1>
+        <div class="ui text container segment inverted" >
+            <h1 class="ui header pink">Le programme</h1>
             <div class="ui items">
                 <div class="item">
                     <div class="image">
@@ -373,8 +379,8 @@
 
     <a name="confirm"></a>
     <div class="ui vertical stripe ">
-        <div class="ui text container segment">
-            <h1 class="ui dividing header">Merci de nous confirmer votre présence ci-dessous</h1>
+        <div class="ui text container segment inverted">
+            <h1 class="ui header pink">Merci de nous confirmer votre présence ci-dessous</h1>
             <form class="ui form">
                 <div class="field">
                     <label for="name">Nom</label>
@@ -423,8 +429,8 @@
 
     <a name="hotel"></a>
     <div class="ui vertical stripe ">
-        <div class="ui text container segment">
-            <h1 class="ui dividing header">Suggestion d'hotels et d'Hébergements</h1>
+        <div class="ui text container segment inverted">
+            <h1 class="ui header pink">Suggestion d'hotels et d'Hébergements</h1>
             <p>Voici une petite sélection des hôtels et logements que nous vous recommandons.</p>
             <div class="ui items">
                 <div class="item">
@@ -494,7 +500,25 @@
         </div>
     </div>
 
-    <div class="ui inverted vertical footer segment grey">
+    <!--<div class="ui three cards">-->
+        <!--<div class="card">-->
+            <!--<div class="image medium">-->
+                <!--<img src="assets/images/image3.JPG">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="card">-->
+            <!--<div class="image medium">-->
+                <!--<img src="assets/images/image4.JPG">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="card">-->
+            <!--<div class="image medium">-->
+                <!--<img src="assets/images/image5.JPG">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div class="ui inverted vertical footer segment black">
         <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">
                 Conçu avec<i class="heart icon pink"></i> par Auré
