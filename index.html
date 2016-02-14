@@ -12,9 +12,25 @@
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
     <style type="text/css">
+        .pusher {
+            background-color: #FCE4EC !important;
+        }
 
-        body {
-            background-color: #FCE4EC;
+        @font-face {
+            font-family: "sanigaw";
+            src: url('assets/fonts/SaginawMedium.ttf');
+        }
+
+        @font-face {
+            font-family: "sanigaw";
+            font-style: italic;
+            src: url('assets/fonts/SaginawLight.ttf');
+        }
+
+        @font-face {
+            font-family: "sanigaw";
+            font-weight: bold;
+            src: url('assets/fonts/SaginawBold.ttf');
         }
 
         .hidden.menu {
@@ -55,11 +71,19 @@
             font-size: 1.33em;
         }
 
-        .ui.vertical.stripe .horizontal.divider {
-            margin: 3em 0em;
-        }
+        /*.ui.vertical.stripe .horizontal.divider {*/
+            /*margin: 3em 0em;*/
+        /*}*/
         .quote.stripe.segment {
             padding: 0em;
+        }
+
+        .ui.header.black {
+            text-shadow: 0px 0px 3px #000, -2px -2px #FCE4EC, 2px 1px #FCE4EC;
+        }
+
+        .ui.message {
+            background-color: #FCE4EC;
         }
 
         .quote.stripe.segment .grid .column {
@@ -85,8 +109,17 @@
             .secondary.pointing.menu .toc.item {
                 display: block;
             }
+
+            .statistic .value {
+                font-size: 1em !important;
+            }
+
+            .statistic .label {
+                font-size: 0.75em !important;
+            }
+
             .masthead.segment {
-                min-height: 350px;
+                min-height: 200px;
             }
             .masthead h1.ui.header {
                 font-size: 2em !important;
@@ -96,30 +129,12 @@
                 margin-top: 0.5em !important;
                 font-size: 1.5em !important;
             }
+
+            #program-map {
+                display: none;
+            }
         }
 
-        @font-face {
-            font-family: "sanigaw";
-            src: url('assets/fonts/SaginawMedium.ttf');
-        }
-
-        @font-face {
-            font-family: "sanigaw";
-            font-style: italic;
-            src: url('assets/fonts/SaginawLight.ttf');
-        }
-
-        @font-face {
-            font-family: "sanigaw";
-            font-weight: bold;
-            src: url('assets/fonts/SaginawBold.ttf');
-        }
-
-        /* menu overriden */
-        /*.container {*/
-        /*padding: 5em 0;*/
-
-        /*}*/
 
         .ui.dividing.header:first-child {
             margin-top: 0;
@@ -136,16 +151,6 @@
         .ui.liberty {
             background: url('assets/images/liberty.jpg') !important;
         }
-        /* Sidebars use a special fix for iOS */
-        html.ios {
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        html.ios,
-        html.ios body {
-            height: initial !important;
-        }
 
         .footer.segment {
             padding: 2em 0 !important;
@@ -159,13 +164,19 @@
             display: none;
         }
 
-        .todo {
-            border-image: url('assets/images/liberty.jpg') 50 round;
-            border-image-width: 25px;
-            border-image-outset: 35px;
+        .statistics {
+            padding-bottom: 1em;
         }
 
-
+        /* Sidebars use a special fix for iOS */
+        html.ios {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        html.ios,
+        html.ios body {
+            height: initial !important;
+        }
     </style>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
@@ -187,25 +198,8 @@
             // create sidebar and attach to menu open
             $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
-            // change active item for menu
-            $('.ui.top .item').on('click', function() {
-                $('.ui.top .item').removeClass('active');
-                $(this).addClass('active');
-                //
-                $('.ui.masthead .item.active').removeClass('active');
-                $('.ui.masthead .item[href="#' + $(this).attr('href') + '"]').addClass('active');
-            });
-
-            $('.ui.masthead .item').on('click', function() {
-                $('.ui.masthead .item').removeClass('active');
-                $(this).addClass('active');
-                //
-                $('.ui.top .item.active').removeClass('active');
-                $('.ui.top .item[href="#' + $(this).attr('href') + '"]').addClass('active');
-            });
-
             var form = $('.ui.form'),
-                formUrl = 'https://docs.google.com/forms/d/1Nap_jmWEteZWV2lJyETkYeys6xDitStqDT_l0vPZEPw/formResponse';
+                    formUrl = 'https://docs.google.com/forms/d/1Nap_jmWEteZWV2lJyETkYeys6xDitStqDT_l0vPZEPw/formResponse';
             form.submit(function(event){
                 var fields = form.form('get values');
 
@@ -272,15 +266,24 @@
 <!-- Following Menu -->
 <div class="ui large top fixed hidden menu inverted pink four item">
     <div class="ui container">
-        <a class="active item" href="#">Accueil</a>
+        <a class="item" href="#">Accueil</a>
         <a class="item" href="#program">Programme</a>
         <a class="item" href="#confirm">Confirmer votre présence</a>
         <a class="item" href="#hotel">Hébergements</a>
     </div>
 </div>
 
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu inverted pink">
+    <a class="item">Accueil</a>
+    <a class="item" href="#program">Programme</a>
+    <a class="item" href="#hotel">Hébergements</a>
+    <a class="item" href="#confirm">Confirmer votre présence</a>
+</div>
+
 <!-- Page Contents -->
 <div class="pusher">
+
     <div class="ui inverted vertical masthead center aligned segment liberty">
 
         <div class="ui text container">
@@ -290,27 +293,35 @@
             <br>
         </div>
 
-        <div class="ui text container">
-            <div class="ui statistics" style="font-weight: bold" data-date="2016/08/27"></div>
+        <div class="ui message">
+            <div class="ui text container">
+                <div class="ui four statistics tiny" data-date="2016/08/27"></div>
+            </div>
         </div>
 
         <div class="ui container">
             <div class="ui large secondary inverted pointing menu pink four item">
-                <a class="active item">Accueil</a>
+                <a class="toc item">
+                    <i class="sidebar icon"></i>Menu
+                </a>
+                <a class="item">Accueil</a>
                 <a class="item" href="#program">Programme</a>
                 <a class="item" href="#confirm">Confirmer votre présence</a>
                 <a class="item" href="#hotel">Hébergements</a>
             </div>
         </div>
+
     </div>
 
     <div class="ui vertical stripe">
+
         <div class="ui text container segment" >
                 <img class="ui medium left floated image" src="assets/images/background.jpg">
                 <h1 class="ui dividing header">Notre journée tant attendue!</h1>
                 <p>La cérémonie à la mairie se fera le vendredi 26 Août avec seulement nos parents, frères et soeurs et témoins.</p>
                 <p>Nous nous retrouverons donc le 27 Août pour la cérémonie religieuse et la récéption, que nous sommes ravis de célébrer avec chacun d'entre vous !</p>
         </div>
+
     </div>
 
     <a name="program"></a>
@@ -353,7 +364,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJPT7gwzmB5kcRXaajVhDLB5U&destination=place_id:ChIJOUx24-gp5EcRRjezPrAABR4&key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc" allowfullscreen></iframe>
+                    <iframe id="program-map" width="660" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJPT7gwzmB5kcRXaajVhDLB5U&destination=place_id:ChIJOUx24-gp5EcRRjezPrAABR4&key=AIzaSyAsSvvYigYREAtUwvszikr8wrEcK9x06wc" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -403,7 +414,7 @@
                         <label for="no">Non,<p>Malheuresement j'ai aqua-poney...</p></label>
                     </div>
                 </div>
-                <button class="ui button" type="submit">Valider</button>
+                <button class="ui button pink" type="submit">Valider</button>
                 <div class="ui error message"></div>
             </form>
         </div>
@@ -482,7 +493,7 @@
         </div>
     </div>
 
-    <div class="ui inverted vertical footer segment">
+    <div class="ui inverted vertical footer segment grey">
         <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">
                 Conçu avec<i class="heart icon pink"></i> par Auré
@@ -492,5 +503,4 @@
 
 </div>
 </body>
-
 </html>
