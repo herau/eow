@@ -201,6 +201,10 @@
     <script src="semantic/dist/semantic.min.js"></script>
     <script>
         $(document).ready(function() {
+            if (!!localStorage.getItem('form')) {
+                $('.ui.form').addClass('hidden');
+            }
+
             // fix menu when passed
             $('.masthead').visibility({
                 once: false,
@@ -234,12 +238,15 @@
                     dataType: "xml",
                     statusCode: {
                         0: function (){
-                            //TODO form clear
-                            // ajouter un cookie et supprimer le formulaire
+                            document.querySelector('.ui .form').reset();
+                            $('.ui.modal')
+                                    .modal('show')
+                            ;
+                            form.addClass('hidden');
+                            localStorage.setItem("form", true);
                         },
                         200: function (){
-                            //TODO form clear
-                            // ajouter un cookie et supprimer le formulaire
+                            console.log('chelou');
                         }
                     }
                 });
@@ -388,8 +395,7 @@
     <a name="confirm"></a>
     <div class="ui vertical stripe ">
         <div class="ui text container segment inverted">
-            <div id="form">
-                <h1 class="ui header pink">Merci de nous confirmer votre présence ci-dessous</h1>
+            <h1 class="ui header pink">Merci de nous confirmer votre présence ci-dessous</h1>
                 <form class="ui inverted form large">
                     <div class="field">
                         <label for="name">Nom</label>
@@ -433,7 +439,6 @@
                     <button class="ui button pink" tabindex="2" type="submit">Valider</button>
                     <div class="ui error message"></div>
                 </form>
-            </div>
         </div>
     </div>
 
@@ -502,6 +507,13 @@
             <div class="ui stackable inverted divided equal height stackable grid">
                 Conçu avec<i class="heart icon pink"></i> par Auré
             </div>
+        </div>
+    </div>
+
+    <div class="ui basic modal">
+        <i class="close icon"></i>
+        <div class="header">
+            <i class="large child icon"></i> Merci d'avoir confirmé votre présence !
         </div>
     </div>
 
