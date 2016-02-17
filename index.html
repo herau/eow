@@ -14,11 +14,6 @@
     <link rel="shortcut icon" href="assets/images/icon.png">
 
     <style type="text/css">
-        .pusher {
-            /*background-color: #FCE4EC !important;*/
-            background: url('assets/images/liberty.jpg') !important;
-        }
-
         @font-face {
             font-family: "sanigaw";
             src: url('assets/fonts/SaginawMedium.ttf');
@@ -36,49 +31,29 @@
             src: url('assets/fonts/SaginawBold.ttf');
         }
 
-        .hidden.menu {
-            display: none;
+        .pusher {
+            background: url('assets/images/liberty.jpg') !important;
         }
 
-        .masthead .logo.item img {
-            margin-right: 1em;
-        }
-        .masthead .ui.menu .ui.button {
-            margin-left: 0.5em;
-        }
         .masthead h1.ui.header {
             margin-top: 1em;
             margin-bottom: 0;
             font-size: 4em !important;
             font-weight: normal;
         }
-        .masthead h2 {
-            font-size: 1.7em;
-            font-weight: normal;
+
+        .hidden.menu {
+            display: none;
         }
 
         .ui.vertical.stripe {
             padding: 2em 0em !important;
-        }
-        .ui.vertical.stripe h3 {
-            font-size: 2em;
-        }
-        .ui.vertical.stripe .button + h3,
-        .ui.vertical.stripe p + h3 {
-            margin-top: 3em;
         }
         .ui.vertical.stripe .floated.image {
             clear: both;
         }
         .ui.vertical.stripe p {
             font-size: 1.33em;
-        }
-
-        /*.ui.vertical.stripe .horizontal.divider {*/
-            /*margin: 3em 0em;*/
-        /*}*/
-        .quote.stripe.segment {
-            padding: 0em;
         }
 
         .ui.header.black {
@@ -92,21 +67,12 @@
             text-transform: none !important;
         }
 
-        .ui.message {
-            background-color: #FCE4EC;
-        }
-
         .ui.item {
             color: white;
         }
 
-        .quote.stripe.segment .grid .column {
-            padding-top: 5em;
-            padding-bottom: 5em;
-        }
-
         .footer.segment {
-            padding: 5em 0em;
+            padding: 5em 0;
         }
         .secondary.pointing.menu .toc.item {
             display: none;
@@ -139,19 +105,10 @@
                 font-size: 2em !important;
                 margin-top: 0.5em !important;
             }
-            .masthead h2 {
-                margin-top: 0.5em !important;
-                font-size: 1.5em !important;
-            }
 
             #program-map {
                 display: none;
             }
-        }
-
-
-        .ui.dividing.header:first-child {
-            margin-top: 0;
         }
 
         h1, h3 {
@@ -182,109 +139,25 @@
             padding-bottom: 1em;
         }
 
+        .description, .meta, .header {
+            color: white !important;
+        }
+
         /* Sidebars use a special fix for iOS */
         html.ios {
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
+
         html.ios,
         html.ios body {
             height: initial !important;
-        }
-
-        .description, .meta, .header {
-            color: white !important;
         }
     </style>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="bower_components/jquery.countdown/dist/jquery.countdown.min.js"></script>
     <script src="semantic/dist/semantic.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            if (!!localStorage.getItem('form')) {
-                $('.ui.form').addClass('hidden');
-            }
-
-            // fix menu when passed
-            $('.masthead').visibility({
-                once: false,
-                onBottomPassed: function() {
-                    $('.fixed.menu').transition('fade in');
-                },
-                onBottomPassedReverse: function() {
-                    $('.fixed.menu').transition('fade out');
-                }
-            });
-
-            // create sidebar and attach to menu open
-            $('.ui.sidebar').sidebar('attach events', '.toc.item');
-
-            var form = $('.ui.form'),
-                    formUrl = 'https://docs.google.com/forms/d/1Nap_jmWEteZWV2lJyETkYeys6xDitStqDT_l0vPZEPw/formResponse';
-            form.submit(function(event){
-                var fields = form.form('get values');
-
-                $.ajax({
-                    url: formUrl,
-                    data: {
-                        "entry.755074399" : fields['name'],
-                        "entry.187895952" : fields['present'],
-                        "entry.133375324" : fields['saturday'] === 'on' ? "oui" : "non",
-                        "entry.237537863" : fields['sunday'] === 'on' ? "oui" : "non",
-                        "entry.1850958901": +fields['people'],
-                        "entry.503660708" : +fields['children']
-                    },
-                    type: "POST",
-                    dataType: "xml",
-                    statusCode: {
-                        0: function (){
-                            document.querySelector('.ui .form').reset();
-                            $('.ui.modal')
-                                    .modal('show')
-                            ;
-                            form.addClass('hidden');
-                            localStorage.setItem("form", true);
-                        },
-                        200: function (){
-                            console.log('chelou');
-                        }
-                    }
-                });
-
-                event.preventDefault();
-            });
-
-            var date = $('.ui.statistics').data('date');
-            $('.ui.statistics').countdown(date, function(event) {
-                var text = '<div class="statistic">' +
-                        '<div class="value">%D</div>' +
-                        '<div class="label">Jours</div>' +
-                        '</div>' +
-                        '<div class="statistic">' +
-                        '<div class="value">%H</div>' +
-                        '<div class="label">Heures</div>' +
-                        '</div>' +
-                        '<div class="statistic">' +
-                        '<div class="value">%M</div>'+
-                        '<div class="label">Minutes</div>'+
-                        '</div>'+
-                        '<div class="statistic">'+
-                        '<div class="value">%S</div>'+
-                        '<div class="label">Secondes</div>'+
-                        '</div>';
-                $(this).html(event.strftime(text));
-            });
-        });
-
-        function handleClick(radio) {
-            $('#hidden-fields').removeClass('hidden');
-        }
-
-        function handleClick2(radio) {
-            $('#hidden-fields').addClass('hidden');
-        }
-    </script>
 </head>
 <body>
 
@@ -519,5 +392,91 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        if (!!localStorage.getItem('form')) {
+            $('.ui.form').addClass('hidden');
+        }
+
+        // fix menu when passed
+        $('.masthead').visibility({
+            once: false,
+            onBottomPassed: function() {
+                $('.fixed.menu').transition('fade in');
+            },
+            onBottomPassedReverse: function() {
+                $('.fixed.menu').transition('fade out');
+            }
+        });
+
+        // create sidebar and attach to menu open
+        $('.ui.sidebar').sidebar('attach events', '.toc.item');
+
+        var form = $('.ui.form'),
+                formUrl = 'https://docs.google.com/forms/d/1Nap_jmWEteZWV2lJyETkYeys6xDitStqDT_l0vPZEPw/formResponse';
+        form.submit(function(event){
+            var fields = form.form('get values');
+
+            $.ajax({
+                url: formUrl,
+                data: {
+                    "entry.755074399" : fields['name'],
+                    "entry.187895952" : fields['present'],
+                    "entry.133375324" : fields['saturday'] === 'on' ? "oui" : "non",
+                    "entry.237537863" : fields['sunday'] === 'on' ? "oui" : "non",
+                    "entry.1850958901": +fields['people'],
+                    "entry.503660708" : +fields['children']
+                },
+                type: "POST",
+                dataType: "xml",
+                statusCode: {
+                    0: function (){
+                        document.querySelector('.ui .form').reset();
+                        $('.ui.modal')
+                                .modal('show')
+                        ;
+                        form.addClass('hidden');
+                        localStorage.setItem("form", true);
+                    },
+                    200: function (){
+                        console.log('chelou');
+                    }
+                }
+            });
+
+            event.preventDefault();
+        });
+
+        var date = $('.ui.statistics').data('date');
+        $('.ui.statistics').countdown(date, function(event) {
+            var text = '<div class="statistic">' +
+                    '<div class="value">%D</div>' +
+                    '<div class="label">Jours</div>' +
+                    '</div>' +
+                    '<div class="statistic">' +
+                    '<div class="value">%H</div>' +
+                    '<div class="label">Heures</div>' +
+                    '</div>' +
+                    '<div class="statistic">' +
+                    '<div class="value">%M</div>'+
+                    '<div class="label">Minutes</div>'+
+                    '</div>'+
+                    '<div class="statistic">'+
+                    '<div class="value">%S</div>'+
+                    '<div class="label">Secondes</div>'+
+                    '</div>';
+            $(this).html(event.strftime(text));
+        });
+    });
+
+    function handleClick(radio) {
+        $('#hidden-fields').removeClass('hidden');
+    }
+
+    function handleClick2(radio) {
+        $('#hidden-fields').addClass('hidden');
+    }
+</script>
 </body>
 </html>
