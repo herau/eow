@@ -423,8 +423,8 @@
                 data: {
                     "entry.755074399" : fields['name'],
                     "entry.187895952" : fields['present'],
-                    "entry.133375324" : fields['saturday'] === 'on' ? "oui" : "non",
-                    "entry.237537863" : fields['sunday'] === 'on' ? "oui" : "non",
+                    "entry.133375324" : fields['present'] === 'oui' && fields['saturday'] === 'on' ? "oui" : "non",
+                    "entry.237537863" : fields['present'] === 'oui' && fields['sunday'] === 'on' ? "oui" : "non",
                     "entry.1850958901": +fields['people'],
                     "entry.503660708" : +fields['children']
                 },
