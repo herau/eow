@@ -33,7 +33,7 @@ semantic/src
 semantic/dist/semantic.js
 semantic/dist/semantic.css
 semantic/dist/components
-semantic/dist/themes
+semantic/dist/themes/github/
 semantic/tasks
 semantic/gulpfile.js
 
