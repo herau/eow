@@ -193,7 +193,7 @@
 
         <div class="ui message inverted">
             <div class="ui text container">
-                <div class="ui four statistics tiny inverted" data-date="2016/08/27"></div>
+                <div class="ui four statistics tiny inverted"></div>
             </div>
         </div>
 
@@ -234,6 +234,9 @@
                     </div>
                     <div class="content">
                         <a class="header">Cérémonie à l'église</a>
+                        <div class="meta">
+                            <span><i class="alarm outline icon"></i> Rendez-vous vers 14h30 - 15h</span>
+                        </div>
                         <div class="meta">
                             <span>Eglise Saint Martin</span>
                         </div>
@@ -308,6 +311,12 @@
                         <div class="ui radio checkbox">
                             <input id="no" type="radio" name="present" value="non" class="hidden" onclick="handleClick2(this)">
                             <label for="no">Non,<p>Malheuresement j'ai aqua-poney...</p></label>
+                        </div>
+                    </div>
+                    <div id="hidden-fields-2" class="field hidden">
+                        <div class="field">
+                            <label for="comment">Commentaire</label>
+                            <textarea rows="2" id="comment" name="comment"></textarea>
                         </div>
                     </div>
                     <button class="ui button pink" tabindex="2" type="submit">Valider</button>
@@ -426,7 +435,8 @@
                     "entry.133375324" : fields['present'] === 'oui' && fields['saturday'] === 'on' ? "oui" : "non",
                     "entry.237537863" : fields['present'] === 'oui' && fields['sunday'] === 'on' ? "oui" : "non",
                     "entry.1850958901": +fields['people'],
-                    "entry.503660708" : +fields['children']
+                    "entry.503660708" : +fields['children'],
+                    "entry.1857723167": fields['comment']
                 },
                 type: "POST",
                 dataType: "xml",
@@ -448,7 +458,7 @@
             event.preventDefault();
         });
 
-        var date = $('.ui.statistics').data('date');
+        var date = new Date(Date.UTC(2016, 08, 27));
         $('.ui.statistics').countdown(date, function(event) {
             var text = '<div class="statistic">' +
                     '<div class="value">%D</div>' +
@@ -470,12 +480,14 @@
         });
     });
 
-    function handleClick(radio) {
+    function handleClick() {
         $('#hidden-fields').removeClass('hidden');
+        $('#hidden-fields-2').addClass('hidden');
     }
 
-    function handleClick2(radio) {
+    function handleClick2() {
         $('#hidden-fields').addClass('hidden');
+        $('#hidden-fields-2').removeClass('hidden');
     }
 </script>
 </body>
